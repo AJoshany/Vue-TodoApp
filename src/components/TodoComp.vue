@@ -9,25 +9,22 @@
       </div>
     </div>
 
-    <ul class="todo-categories">
-      <li v-for="(category, index) in categories" :key="index">
-        <a>
-          {{ category }}
-        </a>
-      </li>
-    </ul>
+    <div class="todo-categories">
+      <button @click="category = 'all'">All</button>
+      <button @click="category = 'completed'">Completed</button>
+      <button @click="category = 'uncompleted'">Uncompleted</button>
+    </div>
 
     <ul class="todo-list">
-      <li v-for="(item, index) in todos" :key="index">
+      <li v-for="(item, index) in filteredTodos" :key="index">
         <div class="todo-list-text">
-          <div class="todo-name">
-            <input type="checkbox" />
+          <div class="todo-name" :class="{'complete':item.isCompleted}">
+            <input type="checkbox" @click="handleCompleted(item.id)" :checked="item.isCompleted"/>
             {{ item.title }}
           </div>
-          <!-- <span class="todo-remainingDays">2 days left</span> -->
-          <button @click="removeTodo(index)">❌</button>
+          <button @click="removeTodo(index)" :style="{opacity: item.isCompleted ? 0.5 : 1}">❌</button>
         </div>
-        <div class="progress">
+        <div class="progress" :style="{opacity: item.isCompleted ? 0.5 : 1}">
           <div
             :class="['progress-bar', item.pBarClass]"
             :style="{ width: item.progress + '%' }"
@@ -45,7 +42,21 @@ import { computed, reactive, ref, toRef, watch } from "vue";
 let newTodo = ref("");
 let progress = ref();
 let todos = reactive([]);
-const categories = reactive(["All", "Completed", "Uncompleted"]);
+const category  = ref("all")
+
+const filteredTodos = computed(()=>{
+  if(category.value=="all") return todos
+  if(category.value==="completed") {
+    return todos.filter((item)=>{
+      return item.isCompleted===true
+    })
+  }
+  if(category.value==="uncompleted"){
+    return todos.filter((item)=>{
+      return item.isCompleted===false
+    })
+  }
+})
 
 function addTodo() {
   let isRed = false;
@@ -68,6 +79,7 @@ function addTodo() {
       id: Date.now(),
       title: newTodo.value,
       progress: progress.value,
+      isCompleted: false,
       pBarClass: computed(() => {
         if (isRed) return "red-progressBar";
         if (isGreen) return "green-progressBar";
@@ -75,15 +87,42 @@ function addTodo() {
         return "";
       }),
     });
-
-    console.log(todos);
     newTodo.value = "";
     progress.value = "";
+    category.value="all"
   }
+  console.log(todos)
+  console.log(filteredTodos)
 }
 
 function removeTodo(index) {
   todos.splice(index, 1);
+}
+function handleCompleted(id){
+  let todo = todos.find((item) =>{
+    return item.id===id
+  })
+  todo.isCompleted = !todo.isCompleted
+}
+
+function categoryHandler(category){
+  let newTodos = reactive([])
+  newTodos = [...todos]
+  if(category==="all") return
+  if(category==="completed") {
+    newTodos = todos.filter((item)=>{
+      return item.isCompleted===true
+    })
+    todos=newTodos
+  }
+  if(category==="uncompleted"){
+    newTodos = todos.filter((item)=>{
+      return item.isCompleted===false
+    })
+    todos=newTodos
+  }
+  watch(todos)
+  console.log(todos)
 }
 </script>
 
