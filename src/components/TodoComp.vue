@@ -5,7 +5,7 @@
       <input type="text" placeholder="Enter Your Task" v-model="newTodo" />
       <div>
         <input type="number" placeholder="%" min="0" v-model="progress" />
-        <button @click="addTodo">Add</button>
+        <button @click="addTodo">Add</button> 
       </div>
     </div>
 
@@ -36,16 +36,21 @@
         </div>
       </li>
     </ul>
+    <EditModal  v-if="showEditModal"/>
+    
   </div>
 </template>
 إ
 
 <script setup>
 import "./TodoComp.css";
+import EditModal from './EditModal.vue'
 import { computed, reactive, ref, toRef, watch } from "vue";
+
 let newTodo = ref("");
 let progress = ref();
 let todos = reactive([]);
+let showEditModal = ref(true)
 const category  = ref("all")
 
 const filteredTodos = computed(()=>{
@@ -78,6 +83,9 @@ function addTodo() {
       isOrange = false;
       isGreen = true;
       isRed = false;
+    }
+    if(progress.value>=100){
+      progress.value=100
     }
     todos.push({
       id: Date.now(),
