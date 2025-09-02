@@ -105,25 +105,6 @@ function handleCompleted(id){
   todo.isCompleted = !todo.isCompleted
 }
 
-function categoryHandler(category){
-  let newTodos = reactive([])
-  newTodos = [...todos]
-  if(category==="all") return
-  if(category==="completed") {
-    newTodos = todos.filter((item)=>{
-      return item.isCompleted===true
-    })
-    todos=newTodos
-  }
-  if(category==="uncompleted"){
-    newTodos = todos.filter((item)=>{
-      return item.isCompleted===false
-    })
-    todos=newTodos
-  }
-  watch(todos)
-  console.log(todos)
-}
 </script>
 
 <style scoped></style>
