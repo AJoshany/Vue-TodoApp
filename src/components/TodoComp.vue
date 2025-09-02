@@ -10,9 +10,9 @@
     </div>
 
     <div class="todo-categories">
-      <button @click="category = 'all'">All</button>
-      <button @click="category = 'completed'">Completed</button>
-      <button @click="category = 'uncompleted'">Uncompleted</button>
+      <button @click="category = 'all'" class="categorybtn" :class="{activeCategory: category==='all'}">All</button>
+      <button @click="category = 'completed'" class="categorybtn" :class="{activeCategory: category==='completed'}" >Completed</button>
+      <button @click="category = 'uncompleted'" class="categorybtn" :class="{activeCategory: category==='uncompleted'}">Uncompleted</button>
     </div>
 
     <ul class="todo-list">
@@ -22,7 +22,11 @@
             <input type="checkbox" @click="handleCompleted(item.id)" :checked="item.isCompleted"/>
             {{ item.title }}
           </div>
-          <button @click="removeTodo(index)" :style="{opacity: item.isCompleted ? 0.5 : 1}">❌</button>
+          <div class="list-buttons">
+            <button @click="editTodo(index)" :style="{opacity: item.isCompleted ? 0.5 : 1}">⛏</button>
+            <button @click="removeTodo(index)" :style="{opacity: item.isCompleted ? 0.5 : 1}">❌</button>
+          </div>
+
         </div>
         <div class="progress" :style="{opacity: item.isCompleted ? 0.5 : 1}">
           <div
