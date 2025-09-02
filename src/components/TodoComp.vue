@@ -36,7 +36,7 @@
         </div>
       </li>
     </ul>
-    <EditModal  v-if="showEditModal"/>
+    <EditModal todoName="Agdas" todoProgress="50"  v-if="showEditModal"/>
     
   </div>
 </template>
