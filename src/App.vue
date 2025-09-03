@@ -1,6 +1,5 @@
 <template>
   <div class="main-app">
-   
     <h1>Todo App</h1>
     <TodoComp @sendNameToParent="handleNameUpdate" />
   </div>
@@ -9,14 +8,12 @@
 <script setup>
 import { ref } from "vue";
 import TodoComp from "./components/TodoComp.vue";
-
-
 </script>
 
 <style scoped>
 .main-app {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 4rem;
 }
 </style>

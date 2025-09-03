@@ -23,18 +23,20 @@
   border-bottom-left-radius: 2rem;
   width: 100%;
   padding-right: 1rem;
+  cursor: text;
 }
 
 .input-group input::placeholder {
   color: rgb(46, 46, 46);
 }
 
-.input-group>div {
+.input-group > div {
   display: flex;
   position: relative;
 }
 
-.input-group>div>button {
+.input-group > div > button {
+  box-sizing: border-box;
   padding: 1rem 2rem;
   border-radius: 2rem;
   border: none;
@@ -43,16 +45,23 @@
   right: 0;
   font-weight: bold;
 }
+.input-group > div > button:hover {
+  border-left: 2px solid white;
+}
 
-.input-group>div>input {
+.input-group > div > input {
   border-radius: 0;
   border: none;
   border-left: 1px solid rgb(95, 95, 95);
+  margin-right: 1rem;
 }
 
 @media screen and (width<=768px) {
-  .input-group>div>button {
-    padding: 1rem 1rem  ;
+  .input-group > div > button {
+    padding: 1rem 1rem;
+  }
+  .input-group > div > input {
+    margin-right: 0.5rem;
   }
 }
 
@@ -65,8 +74,6 @@
   /* border-bottom: 1px solid gray; */
   padding-top: 0.5rem;
 }
-
-
 
 .categorybtn {
   background: none;
@@ -157,6 +164,8 @@
 .progress {
   width: 100%;
   height: 10px;
+  border-radius: 1rem;
+  overflow: hidden;
   background-color: gray;
 }
 
@@ -165,15 +174,15 @@
 }
 
 .green-progressBar {
-  background-color: #00FF00;
+  background-color: #00ff00;
 }
 
 .red-progressBar {
-  background-color: #FF033E;
+  background-color: #ff033e;
 }
 
 .orange-progressBar {
-  background-color: #FEBE10;
+  background-color: #febe10;
 }
 
 .complete {

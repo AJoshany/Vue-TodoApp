@@ -1,6 +1,6 @@
 <template>
   <div class="todo-main">
-    <h3>Todo-list</h3>
+    <!-- <h3>Todo-list</h3> -->
     <div class="input-group">
       <input type="text" placeholder="Enter Your Task" v-model="newTodo" />
       <div>
@@ -72,6 +72,7 @@
       :todoProgress="editingTodo.progress"
       v-if="showEditModal"
       v-on:editComp="updateTodo"
+      @onClose="closeModal"
     />
   </div>
 </template>
@@ -171,6 +172,10 @@ function updateTodo(editedTodo) {
   editingTodo.value = {};
   showEditModal.value = false;
   progress.value = "";
+}
+
+function closeModal() {
+  showEditModal.value = false;
 }
 </script>
 
